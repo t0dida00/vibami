@@ -1,0 +1,80 @@
+@use "../../styles/tokens" as t;
+@use "../../styles/mixins" as m;
+
+.root {
+  width: 100%;
+}
+
+.item {
+  border-bottom: 1px solid rgba(t.$green, 0.12);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.header {
+  display: flex;
+  margin: 0;
+}
+
+.trigger {
+  @include m.focus-ring;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  gap: 1rem;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(t.$green, 0.035);
+  }
+
+  &[data-state="open"] .chevron {
+    transform: rotate(180deg);
+  }
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: t.$green;
+  transition: transform 220ms ease;
+}
+
+.content {
+  overflow: hidden;
+
+  &[data-state="open"] {
+    animation: accordion-down 240ms ease-out;
+  }
+
+  &[data-state="closed"] {
+    animation: accordion-up 200ms ease-in;
+  }
+}
+
+.contentInner {
+  padding: 0 1rem 1rem;
+  transform-origin: top;
+  animation: content-scale-in 240ms ease-out;
+}
+
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+
+@keyframes content-scale-in {
+  from { opacity: 0; transform: scale(0.985); }
+  to { opacity: 1; transform: scale(1); }
+}

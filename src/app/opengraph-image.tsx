@@ -46,10 +46,10 @@ export default function OpenGraphImage() {
             maxWidth: "850px",
           }}
         >
-          Build the product. Keep the codebase calm.
+          Fresh Vietnamese bánh mì, built your way.
         </div>
         <div style={{ color: "#6f7068", display: "flex", fontSize: 24 }}>
-          Next.js · TypeScript · Magic UI · Phosphor Icons
+          Fresh ingredients · Baked daily · Bold flavor
         </div>
       </div>
     </div>,

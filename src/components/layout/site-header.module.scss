@@ -1,0 +1,101 @@
+@use "../../styles/tokens" as t;
+@use "../../styles/mixins" as m;
+
+.header {
+  position: sticky;
+  z-index: 50;
+  top: 0;
+  border-bottom: 1px solid rgba(t.$green, 0.1);
+  background: rgba(t.$cream, 0.95);
+  backdrop-filter: blur(20px);
+}
+
+.inner {
+  @include m.container(t.$wide-width);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 76px;
+  gap: 1.5rem;
+  padding-inline: 1.25rem;
+  @media (min-width: t.$lg) { padding-inline: 2.5rem; }
+}
+
+.brand { display: flex; flex-shrink: 0; align-items: center; gap: 0.625rem; }
+.brandMark {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: t.$green;
+  background: #f6bf26;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px t.$green, 0 0 0 4px t.$cream;
+  place-items: center;
+  transform: rotate(-6deg);
+}
+.brandCopy { line-height: 1; }
+.brandName {
+  @include m.display-heading;
+  display: block;
+  color: t.$green;
+  font-size: 1.25rem;
+  @media (min-width: t.$sm) { font-size: 1.5rem; }
+}
+.brandSubtitle {
+  display: block;
+  color: t.$red;
+  font-size: 0.625rem;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-align: center;
+}
+.nav {
+  display: none;
+  align-items: center;
+  gap: 0.25rem;
+  @media (min-width: t.$lg) { display: flex; }
+}
+.navLink {
+  padding: 0.5rem 0.75rem;
+  border-radius: t.$radius;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: 160ms ease;
+  &:hover { color: t.$green; background: rgba(t.$green, 0.05); }
+}
+.actions { display: flex; align-items: center; gap: 0.5rem; @media (min-width: t.$sm) { gap: 0.75rem; } }
+.cart, .menu {
+  @include m.focus-ring;
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border-radius: 50%;
+  place-items: center;
+}
+.cart {
+  position: relative;
+  color: #183f25;
+  &:hover { background: rgba(t.$green, 0.05); }
+}
+.cartCount {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: grid;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: white;
+  background: t.$green;
+  border-radius: 50%;
+  font-size: 0.625rem;
+  font-weight: 700;
+  place-items: center;
+}
+.order { display: none !important; @media (min-width: t.$sm) { display: inline-flex !important; } }
+.menu {
+  border: 1px solid rgba(t.$green, 0.15);
+  background: transparent;
+  cursor: pointer;
+  @media (min-width: t.$lg) { display: none; }
+}

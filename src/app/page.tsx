@@ -1,18 +1,17 @@
-import { FoundationGrid } from "@/features/home/components/foundation-grid";
+import { BanhMiBuilder } from "@/features/home/components/banh-mi-builder";
+import { ComboSection } from "@/features/home/components/combo-section";
 import { HeroSection } from "@/features/home/components/hero-section";
-import { StackStrip } from "@/features/home/components/stack-strip";
-import { StructureSection } from "@/features/home/components/structure-section";
+import { SignatureMenu } from "@/features/home/components/signature-menu";
+import { ValuesFooter } from "@/features/home/components/values-footer";
 
 export default function HomePage() {
   return (
     <main>
       <HeroSection />
-      <StackStrip />
-      <FoundationGrid />
-      <StructureSection />
-      <footer className="px-6 py-10 text-center text-sm text-muted-foreground">
-        Built to be changed—not merely admired.
-      </footer>
+      <SignatureMenu />
+      <BanhMiBuilder />
+      <ComboSection />
+      <ValuesFooter />
     </main>
   );
 }

@@ -1,0 +1,32 @@
+@use "tokens" as t;
+
+@mixin container($width: t.$page-width) {
+  width: min(100%, $width);
+  margin-inline: auto;
+}
+
+@mixin section-padding {
+  padding: 4rem 1.25rem;
+
+  @media (min-width: t.$sm) {
+    padding-inline: 2rem;
+  }
+
+  @media (min-width: t.$lg) {
+    padding-inline: 2.5rem;
+  }
+}
+
+@mixin display-heading {
+  font-family: t.$display;
+  font-weight: 400;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid t.$green;
+    outline-offset: 3px;
+  }
+}

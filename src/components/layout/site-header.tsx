@@ -1,22 +1,31 @@
 import Link from "next/link";
-import { CubeIcon } from "@phosphor-icons/react/dist/ssr/Cube";
+import { BreadIcon } from "@phosphor-icons/react/dist/ssr/Bread";
+import { ListIcon } from "@phosphor-icons/react/dist/ssr/List";
+import { ShoppingCartIcon } from "@phosphor-icons/react/dist/ssr/ShoppingCart";
 
+import { buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
+
+import styles from "./site-header.module.scss";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-foreground/8 bg-background/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        <Link className="flex items-center gap-2 font-semibold tracking-tight" href="/">
-          <span className="grid size-8 place-items-center rounded-xl bg-foreground text-background">
-            <CubeIcon aria-hidden="true" size={18} weight="duotone" />
+    <header className={styles.header}>
+      <div className={styles.inner}>
+        <Link className={styles.brand} href="#home">
+          <span className={styles.brandMark}>
+            <BreadIcon aria-hidden="true" size={26} weight="fill" />
           </span>
-          {siteConfig.name}
+          <span className={styles.brandCopy}>
+            <span className={styles.brandName}>BÁNH MÌ</span>
+            <span className={styles.brandSubtitle}>STATION</span>
+          </span>
         </Link>
-        <nav aria-label="Main navigation" className="hidden items-center gap-1 sm:flex">
+        <nav aria-label="Main navigation" className={styles.nav}>
           {siteConfig.navigation.map((item) => (
             <Link
-              className="rounded-full px-3 py-2 text-sm text-muted-foreground transition hover:bg-foreground/5 hover:text-foreground"
+              className={styles.navLink}
               href={item.href}
               key={item.href}
             >
@@ -24,6 +33,28 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
+        <div className={styles.actions}>
+          <Link
+            aria-label="Shopping cart with 2 items"
+            className={styles.cart}
+            href="#builder"
+          >
+            <ShoppingCartIcon size={23} weight="bold" />
+            <span className={styles.cartCount}>
+              2
+            </span>
+          </Link>
+          <Link className={cn(buttonVariants(), styles.order)} href="#menu">
+            Order now
+          </Link>
+          <button
+            aria-label="Open navigation"
+            className={styles.menu}
+            type="button"
+          >
+            <ListIcon size={22} weight="bold" />
+          </button>
+        </div>
       </div>
     </header>
   );

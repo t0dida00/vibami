@@ -1,44 +1,74 @@
 import Link from "next/link";
-import { ArrowRightIcon, CheckCircleIcon } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRightIcon } from "@phosphor-icons/react/dist/ssr/ArrowRight";
+import { BreadIcon } from "@phosphor-icons/react/dist/ssr/Bread";
+import { LeafIcon } from "@phosphor-icons/react/dist/ssr/Leaf";
+import { PepperIcon } from "@phosphor-icons/react/dist/ssr/Pepper";
 
-import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
 import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { ImagePlaceholder } from "@/components/ui/image-placeholder";
+
+import styles from "./hero-section.module.scss";
+
+const highlights = [
+  { label: "Fresh ingredients", icon: LeafIcon },
+  { label: "Baked daily", icon: BreadIcon },
+  { label: "Bold flavor", icon: PepperIcon },
+];
 
 export function HeroSection() {
   return (
-    <section className="relative isolate overflow-hidden px-6 pb-24 pt-20 sm:pb-32 sm:pt-28">
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 -z-10 mx-auto h-[520px] max-w-5xl bg-[radial-gradient(circle_at_50%_20%,rgba(190,242,100,0.34),transparent_55%)]"
-      />
-      <div className="mx-auto max-w-4xl text-center">
-        <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-foreground/10 bg-white/60 px-3.5 py-2 text-xs font-medium shadow-sm backdrop-blur">
-          <CheckCircleIcon className="text-lime-600" size={16} weight="fill" />
-          Production-ready foundation
+    <section className={styles.hero} id="home">
+      <div className={styles.inner}>
+        <div className={styles.content}>
+          <h1 className={styles.title}>
+            Fresh<span className={styles.titleSpace}> </span><br className={styles.mobileBreak} />Vietnamese
+            <br />
+            Bánh Mì,
+            <br />
+            <span className={styles.titleAccent}>Built your way</span>
+          </h1>
+          <p className={styles.description}>
+            Choose your bread, protein, sauce, toppings, and spice level—fast, fresh,
+            and full of Vietnamese flavor.
+          </p>
+          <div className={styles.actions}>
+            <Link className={`${buttonVariants()} ${styles.button}`} href="#menu">
+              Order now
+              <ArrowRightIcon
+                className={styles.buttonIcon}
+                size={17}
+                weight="bold"
+              />
+            </Link>
+            <Link
+              className={`${buttonVariants({ variant: "outline" })} ${styles.button}`}
+              href="#builder"
+            >
+              Build your bánh mì
+            </Link>
+          </div>
+          <div className={styles.highlights}>
+            {highlights.map(({ label, icon: Icon }) => (
+              <span
+                className={styles.highlight}
+                key={label}
+              >
+                <Icon className={styles.highlightIcon} size={22} weight="duotone" />
+                {label}
+              </span>
+            ))}
+          </div>
         </div>
-        <h1 className="text-balance text-5xl font-semibold tracking-[-0.055em] sm:text-7xl">
-          Build the product. Keep the codebase{" "}
-          <AnimatedGradientText colorFrom="#65a30d" colorTo="#0891b2" speed={0.75}>
-            calm.
-          </AnimatedGradientText>
-        </h1>
-        <p className="mx-auto mt-7 max-w-2xl text-pretty text-lg leading-8 text-muted-foreground sm:text-xl">
-          A deliberate Next.js starter with domain-first organization, server-safe icons,
-          and source-owned Magic UI components.
-        </p>
-        <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Link className={cn(buttonVariants(), "group")} href="#foundation">
-            Explore the foundation
-            <ArrowRightIcon
-              aria-hidden="true"
-              className="transition-transform group-hover:translate-x-0.5"
-              size={17}
-            />
-          </Link>
-          <Link className={buttonVariants({ variant: "outline" })} href="#structure">
-            View structure
-          </Link>
+        <div className={styles.visual}>
+          <ImagePlaceholder
+            className={styles.placeholder}
+            label="Hero bánh mì photography"
+          />
+          <div className={styles.stamp}>
+            Made with love
+            <br />
+            from Vietnam
+          </div>
         </div>
       </div>
     </section>

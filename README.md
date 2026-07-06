@@ -1,6 +1,6 @@
 # Vibami
 
-A production-minded Next.js foundation using TypeScript, Tailwind CSS, Magic UI,
+A production-minded Next.js foundation using TypeScript, SCSS Modules, Magic UI,
 and Phosphor Icons.
 
 ## Start locally
@@ -32,11 +32,11 @@ Keep code inside a feature until at least two domains need it. Move it into
 
 ## Integration notes
 
-- Magic UI uses the shadcn registry model: its component source is owned by this
-  repository under `src/components/ui`.
+- Shared and feature components own their styles through colocated `.module.scss`
+  files, with global tokens under `src/styles`.
 - Server components import Phosphor icons from `@phosphor-icons/react/dist/ssr`
   to avoid React context and hydration conflicts.
-- Tailwind CSS v4 animation tokens for Magic UI live in `src/app/globals.css`.
+- The source-owned Magic UI component has been converted to a colocated SCSS Module.
 - Marketing pages are statically prerendered as complete HTML. This keeps the SEO
   benefits of server rendering without adding per-request server latency.
 

@@ -1,0 +1,7 @@
+@use "../styles/tokens" as t;
+
+.page { display: grid; min-height: 70vh; padding: 1.5rem; place-items: center; text-align: center; }
+.code { color: t.$muted; font-family: t.$mono; font-size: 0.875rem; }
+.title { margin: 0.75rem 0 0; font-size: 2.25rem; letter-spacing: -0.025em; }
+.copy { margin: 1rem 0 0; color: t.$muted; }
+.link { margin-top: 2rem; }

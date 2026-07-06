@@ -3,12 +3,12 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/components/layout/site-header";
 import { siteConfig } from "@/config/site";
 
-import "./globals.css";
+import "./globals.scss";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} · A scalable Next.js foundation`,
+    default: `${siteConfig.name} · Fresh Vietnamese Bánh Mì`,
     template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -22,12 +22,12 @@ export const metadata: Metadata = {
     locale: siteConfig.locale,
     url: "/",
     siteName: siteConfig.name,
-    title: `${siteConfig.name} · A scalable Next.js foundation`,
+    title: `${siteConfig.name} · Fresh Vietnamese Bánh Mì`,
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} · A scalable Next.js foundation`,
+    title: `${siteConfig.name} · Fresh Vietnamese Bánh Mì`,
     description: siteConfig.description,
   },
   robots: {
@@ -59,7 +59,7 @@ const websiteJsonLd = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body>
         <script
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
           type="application/ld+json"

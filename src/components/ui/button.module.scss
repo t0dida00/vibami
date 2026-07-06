@@ -1,0 +1,42 @@
+@use "../../styles/tokens" as t;
+@use "../../styles/mixins" as m;
+
+.button {
+  @include m.focus-ring;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 0;
+  border-radius: t.$radius;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: 160ms ease;
+  cursor: pointer;
+
+  &:disabled { opacity: 0.5; pointer-events: none; }
+}
+
+.primary {
+  padding: 0.75rem 1.25rem;
+  color: white;
+  background: t.$green;
+  box-shadow: 0 1px 2px rgba(black, 0.08);
+  &:hover { background: t.$green-dark; }
+}
+
+.outline {
+  padding: 0.75rem 1.25rem;
+  color: t.$green;
+  border: 1px solid rgba(t.$green, 0.4);
+  background: rgba(t.$cream, 0.8);
+  backdrop-filter: blur(8px);
+  &:hover { background: rgba(t.$green, 0.05); }
+}
+
+.ghost {
+  padding: 0.5rem 0.75rem;
+  color: #516153;
+  background: transparent;
+  &:hover { color: t.$green; background: rgba(t.$green, 0.05); }
+}

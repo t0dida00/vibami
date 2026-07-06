@@ -1,28 +1,19 @@
-import { cva, type VariantProps } from "class-variance-authority";
 import type { ButtonHTMLAttributes } from "react";
 
 import { cn } from "@/lib/utils";
 
-const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground disabled:pointer-events-none disabled:opacity-50",
-  {
-    variants: {
-      variant: {
-        primary: "bg-foreground px-5 py-3 text-background hover:bg-foreground/85",
-        outline:
-          "border border-foreground/15 bg-background/60 px-5 py-3 text-foreground backdrop-blur hover:bg-foreground/5",
-        ghost: "px-3 py-2 text-muted-foreground hover:bg-foreground/5 hover:text-foreground",
-      },
-    },
-    defaultVariants: { variant: "primary" },
-  },
-);
+import styles from "./button.module.scss";
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
-  VariantProps<typeof buttonVariants>;
+type ButtonVariant = "primary" | "outline" | "ghost";
+
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & { variant?: ButtonVariant };
+
+function buttonVariants({ variant = "primary" }: { variant?: ButtonVariant } = {}) {
+  return cn(styles.button, styles[variant]);
+}
 
 export function Button({ className, variant, ...props }: ButtonProps) {
-  return <button className={cn(buttonVariants({ variant }), className)} {...props} />;
+  return <button className={cn(buttonVariants({ variant: variant ?? undefined }), className)} {...props} />;
 }
 
 export { buttonVariants };

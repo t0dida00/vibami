@@ -2,14 +2,16 @@ import Link from "next/link";
 
 import { buttonVariants } from "@/components/ui/button";
 
+import styles from "./not-found.module.scss";
+
 export default function NotFound() {
   return (
-    <main className="grid min-h-[70vh] place-items-center px-6 text-center">
+    <main className={styles.page}>
       <div>
-        <p className="font-mono text-sm text-muted-foreground">404</p>
-        <h1 className="mt-3 text-4xl font-semibold tracking-tight">That page wandered off.</h1>
-        <p className="mt-4 text-muted-foreground">The foundation is here; this route is not.</p>
-        <Link className={`${buttonVariants()} mt-8`} href="/">
+        <p className={styles.code}>404</p>
+        <h1 className={styles.title}>That page wandered off.</h1>
+        <p className={styles.copy}>The foundation is here; this route is not.</p>
+        <Link className={`${buttonVariants()} ${styles.link}`} href="/">
           Back home
         </Link>
       </div>

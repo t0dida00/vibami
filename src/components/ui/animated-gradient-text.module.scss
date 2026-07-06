@@ -1,0 +1,12 @@
+.text {
+  display: inline;
+  color: transparent;
+  background: linear-gradient(90deg, var(--color-from), var(--color-to), var(--color-from));
+  background-clip: text;
+  background-size: var(--bg-size) 100%;
+  animation: gradient-text 8s linear infinite;
+}
+
+@keyframes gradient-text {
+  to { background-position: var(--bg-size, 300%) 0; }
+}
