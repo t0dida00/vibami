@@ -8,8 +8,10 @@ import { SignatureMenu } from "@/features/home/components/signature-menu";
 import { ValuesFooter } from "@/features/home/components/values-footer";
 
 import { BanhMiBuilder, type BuilderSelections } from "./banh-mi-builder";
+import { useCart } from "./cart-context";
 
 export function HomeContent() {
+  const { addCartItem } = useCart();
   const [presetKey, setPresetKey] = useState(0);
   const [presetSelections, setPresetSelections] = useState<BuilderSelections | null>(null);
 
@@ -21,9 +23,9 @@ export function HomeContent() {
   return (
     <main>
       <HeroSection />
-      <SignatureMenu onBuildBanhMi={applyBanhMiPreset} />
-      <BanhMiBuilder key={presetKey} presetSelections={presetSelections} />
-      <ComboSection />
+      <SignatureMenu onAddToCart={addCartItem} onBuildBanhMi={applyBanhMiPreset} />
+      <BanhMiBuilder key={presetKey} onAddToCart={addCartItem} presetSelections={presetSelections} />
+      <ComboSection onAddToCart={addCartItem} />
       <ValuesFooter />
     </main>
   );

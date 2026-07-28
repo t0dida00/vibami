@@ -224,6 +224,11 @@
   &:hover {
     background: t.$green-dark;
   }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
 }
 
 .illustrate {

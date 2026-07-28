@@ -76,6 +76,9 @@
 .cart {
   position: relative;
   color: #183f25;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
   &:hover { background: rgba(t.$green, 0.05); }
 }
 .cartCount {
@@ -83,11 +86,12 @@
   top: 0;
   right: 0;
   display: grid;
-  width: 1.25rem;
+  min-width: 1.25rem;
   height: 1.25rem;
+  padding-inline: 0.25rem;
   color: white;
   background: t.$green;
-  border-radius: 50%;
+  border-radius: 999px;
   font-size: 0.625rem;
   font-weight: 700;
   place-items: center;

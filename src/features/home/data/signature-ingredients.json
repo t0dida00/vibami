@@ -30,7 +30,7 @@
     },
     "ingredients": [
       "Vietnamese baguette",
-      "Lemongrass chicken",
+      "Grilled chicken",
       "Pickled carrot & daikon",
       "Cucumber",
       "Cilantro",
@@ -50,7 +50,7 @@
     },
     "ingredients": [
       "Vietnamese baguette",
-      "Crispy pork belly",
+      "Crispy pork",
       "Pickled carrot & daikon",
       "Cucumber",
       "Cilantro",
@@ -76,7 +76,7 @@
       "Cilantro",
       "Spring onion",
       "Chili sauce",
-      "House grilled sauce"
+      "Fresh chili"
     ]
   },
   "Meatball Bánh Mì": {
@@ -90,12 +90,12 @@
     },
     "ingredients": [
       "Vietnamese baguette",
-      "Pork meatballs",
-      "Tomato sauce",
+      "Meatball",
       "Pickled carrot & daikon",
       "Cucumber",
       "Cilantro",
       "Spring onion",
+      "Vietnamese fish sauce",
       "Fresh chili"
     ]
   },
@@ -111,13 +111,13 @@
     },
     "ingredients": [
       "Vietnamese baguette",
-      "Grilled pork",
-      "Beef skewer",
+      "Mixed grill",
       "Pickled carrot & daikon",
       "Cucumber",
       "Cilantro",
       "Spring onion",
-      "Signature sauce"
+      "Fresh chili",
+      "House grilled sauce"
     ]
   }
 }

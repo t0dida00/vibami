@@ -16,15 +16,31 @@ import styles from "./signature-menu.module.scss";
 type SignatureItem = (typeof signatureItems)[number];
 
 type SignatureMenuProps = {
+  onAddToCart?: (item: { id: string; ingredients?: string[]; name: string; price: number }) => void;
   onBuildBanhMi?: (selections: BuilderSelections) => void;
 };
 
-export function SignatureMenu({ onBuildBanhMi }: SignatureMenuProps) {
+function getPresetIngredients(preset: (typeof signatureIngredients)[keyof typeof signatureIngredients] | null) {
+  if (!preset) {
+    return [];
+  }
+
+  const { builder } = preset;
+
+  return [
+    builder.bread,
+    builder.protein,
+    ...builder.toppings,
+    builder.sauce,
+  ];
+}
+
+export function SignatureMenu({ onAddToCart, onBuildBanhMi }: SignatureMenuProps) {
   const [selectedItem, setSelectedItem] = useState<SignatureItem | null>(null);
   const selectedPreset = selectedItem
     ? signatureIngredients[selectedItem.name as keyof typeof signatureIngredients]
     : null;
-  const selectedIngredients = selectedPreset?.ingredients ?? [];
+  const selectedIngredients = getPresetIngredients(selectedPreset);
 
   function buildSelectedBanhMi() {
     if (!selectedPreset) {
@@ -41,6 +57,17 @@ export function SignatureMenu({ onBuildBanhMi }: SignatureMenuProps) {
     });
     setSelectedItem(null);
     document.getElementById("builder")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function addSignatureItem(item: SignatureItem) {
+    const preset = signatureIngredients[item.name as keyof typeof signatureIngredients];
+
+    onAddToCart?.({
+      id: `signature-${item.name.toLowerCase()}`,
+      ingredients: getPresetIngredients(preset),
+      name: item.name,
+      price: Number(item.price.replace(/[^0-9.]/g, "")),
+    });
   }
 
   return (
@@ -81,7 +108,7 @@ export function SignatureMenu({ onBuildBanhMi }: SignatureMenuProps) {
                 <p className={styles.description}>{item.description}</p>
                 {/* <p className={styles.price}>{item.price}</p> */}
                 <div className={styles.cardActions}>
-                  <button className={styles.orderNow} type="button">
+                  <button className={styles.orderNow} onClick={() => addSignatureItem(item)} type="button">
                     <ShoppingCartIcon size={15} weight="bold" />
                     Order now
                   </button>

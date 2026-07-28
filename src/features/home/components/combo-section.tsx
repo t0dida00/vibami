@@ -1,13 +1,35 @@
+"use client";
+
 import Image from "next/image";
-import { PlusIcon } from "@phosphor-icons/react/dist/ssr/Plus";
-import { ShoppingCartIcon } from "@phosphor-icons/react/dist/ssr/ShoppingCart";
+import { PlusIcon } from "@phosphor-icons/react/dist/csr/Plus";
+import { ShoppingCartIcon } from "@phosphor-icons/react/dist/csr/ShoppingCart";
 
 import { comboItems } from "@/features/home/data/menu";
 
 import { SectionHeading } from "./section-heading";
 import styles from "./combo-section.module.scss";
 
-export function ComboSection() {
+type ComboSectionProps = {
+  onAddToCart?: (item: { id: string; ingredients?: string[]; name: string; price: number }) => void;
+};
+
+export function ComboSection({ onAddToCart }: ComboSectionProps) {
+  function addComboItem(item: (typeof comboItems)[number]) {
+    onAddToCart?.({
+      id: `combo-${item.name.toLowerCase()}`,
+      name: item.name,
+      price: Number(item.price.replace(/[^0-9.]/g, "")),
+    });
+  }
+
+  function addMealCombo() {
+    onAddToCart?.({
+      id: "combo-drink-side",
+      name: "Drink and Side Combo",
+      price: 3.5,
+    });
+  }
+
   return (
     <section className={styles.section} id="combos">
       <div className={styles.inner}>
@@ -28,12 +50,17 @@ export function ComboSection() {
                 <h3 className={styles.name}>{item.name}</h3>
                 <p className={styles.price}>{item.price}</p>
               </div>
-              <button aria-label={`Add ${item.name}`} className={styles.plus} type="button">
+              <button
+                aria-label={`Add ${item.name}`}
+                className={styles.plus}
+                onClick={() => addComboItem(item)}
+                type="button"
+              >
                 <PlusIcon size={15} weight="bold" />
               </button>
             </article>
           ))}
-          <button aria-label="Add drink and side combo to cart" className={styles.deal} type="button">
+          <button aria-label="Add drink and side combo to cart" className={styles.deal} onClick={addMealCombo} type="button">
             <div className={styles.dealParts}>
               <span>Drink</span>
               <PlusIcon size={15} weight="bold" />

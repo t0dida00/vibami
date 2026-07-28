@@ -32,10 +32,11 @@ export type BuilderSelection = string | string[];
 export type BuilderSelections = Record<number, BuilderSelection>;
 
 type BanhMiBuilderProps = {
+  onAddToCart?: (item: { id: string; ingredients?: string[]; name: string; price: number }) => void;
   presetSelections?: BuilderSelections | null;
 };
 
-export function BanhMiBuilder({ presetSelections }: BanhMiBuilderProps) {
+export function BanhMiBuilder({ onAddToCart, presetSelections }: BanhMiBuilderProps) {
   const [openSteps, setOpenSteps] = useState<string[]>(DEFAULT_OPEN_STEPS);
   const [selections, setSelections] = useState<BuilderSelections>(() => presetSelections ?? {});
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
@@ -74,6 +75,17 @@ export function BanhMiBuilder({ presetSelections }: BanhMiBuilderProps) {
     .filter(Boolean);
   const summary = selectedParts
     .join(" · ");
+  const selectedIngredients = [
+    "Vietnamese baguette",
+    ...builderSteps.flatMap((step, index) => {
+      if (step.title === "Choose size" || step.title === "Spice level") {
+        return [];
+      }
+
+      const selection = selections[index];
+      return Array.isArray(selection) ? selection : selection ? [selection] : [];
+    }),
+  ];
 
   function buildIllustrationPayload() {
     const selectedOptions = builderSteps.flatMap((step, index) => {
@@ -124,6 +136,19 @@ export function BanhMiBuilder({ presetSelections }: BanhMiBuilderProps) {
     } finally {
       setIsIllustrating(false);
     }
+  }
+
+  function addCustomBanhMiToCart() {
+    if (!summary) {
+      return;
+    }
+
+    onAddToCart?.({
+      id: `custom-${summary.toLowerCase()}`,
+      ingredients: selectedIngredients,
+      name: "Custom Bánh Mì",
+      price: 6.5,
+    });
   }
 
   return (
@@ -235,7 +260,7 @@ export function BanhMiBuilder({ presetSelections }: BanhMiBuilderProps) {
               {summary || "Choose your size to begin building your bánh mì."}
             </p>
             <p className={styles.summaryPrice}>€6.50</p>
-            <button className={styles.add} type="button">
+            <button className={styles.add} disabled={!summary} onClick={addCustomBanhMiToCart} type="button">
               <ShoppingCartIcon size={17} weight="bold" />
               Add to cart
             </button>

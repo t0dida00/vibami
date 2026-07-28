@@ -1,15 +1,20 @@
+"use client";
+
 import Link from "next/link";
-import { BreadIcon } from "@phosphor-icons/react/dist/ssr/Bread";
-import { ListIcon } from "@phosphor-icons/react/dist/ssr/List";
-import { ShoppingCartIcon } from "@phosphor-icons/react/dist/ssr/ShoppingCart";
+import { BreadIcon } from "@phosphor-icons/react/dist/csr/Bread";
+import { ListIcon } from "@phosphor-icons/react/dist/csr/List";
+import { ShoppingCartIcon } from "@phosphor-icons/react/dist/csr/ShoppingCart";
 
 import { buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
+import { useCart } from "@/features/home/components/cart-context";
 import { cn } from "@/lib/utils";
 
 import styles from "./site-header.module.scss";
 
 export function SiteHeader() {
+  const { itemCount, openCart } = useCart();
+
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
@@ -34,16 +39,19 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className={styles.actions}>
-          <Link
-            aria-label="Shopping cart with 2 items"
+          <button
+            aria-label={`Shopping cart${itemCount ? ` with ${itemCount} items` : ""}`}
             className={styles.cart}
-            href="#builder"
+            onClick={openCart}
+            type="button"
           >
             <ShoppingCartIcon size={23} weight="bold" />
-            <span className={styles.cartCount}>
-              2
-            </span>
-          </Link>
+            {itemCount ? (
+              <span className={styles.cartCount}>
+                {itemCount}
+              </span>
+            ) : null}
+          </button>
           <Link className={cn(buttonVariants(), styles.order)} href="#menu">
             Order now
           </Link>
