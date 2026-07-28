@@ -127,7 +127,7 @@ export function BanhMiBuilder({ presetSelections }: BanhMiBuilderProps) {
             <h3 className={styles.summaryTitle}>Your bánh mì</h3>
             <ImagePlaceholder className={styles.summaryImage} label="Your custom bánh mì" />
             <p className={styles.summaryDescription}>
-              {summary || "Choose your bread to begin building your bánh mì."}
+              {summary || "Choose your size to begin building your bánh mì."}
             </p>
             <p className={styles.summaryPrice}>€6.50</p>
             <button className={styles.add} type="button">

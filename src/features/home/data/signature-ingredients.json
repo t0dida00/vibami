@@ -79,26 +79,7 @@
       "Fresh chili"
     ]
   },
-  "Egg Mayo Bánh Mì": {
-    "builder": {
-      "bread": "Vietnamese baguette",
-      "size": "19 cm",
-      "protein": "Egg mayo",
-      "sauce": "Egg mayo",
-      "toppings": ["Pickled carrot & daikon", "Cucumber", "Cilantro", "Spring onion"],
-      "spiceLevel": "No spicy"
-    },
-    "ingredients": [
-      "Vietnamese baguette",
-      "Egg mayo",
-      "Pickled carrot & daikon",
-      "Cucumber",
-      "Cilantro",
-      "Spring onion",
-      "House sauce",
-      "Fresh chili"
-    ]
-  },
+  
   "Mixed Grill Bánh Mì": {
     "builder": {
       "bread": "Vietnamese baguette",

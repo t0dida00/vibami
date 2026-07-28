@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { ShoppingCartIcon } from "@phosphor-icons/react/dist/csr/ShoppingCart";
 import { XIcon } from "@phosphor-icons/react/dist/csr/X";
 
-import { ImagePlaceholder } from "@/components/ui/image-placeholder";
-import { signatureItems } from "@/features/home/data/menu";
+import signatureItems from "@/features/home/data/signature-items.json";
 import signatureIngredients from "@/features/home/data/signature-ingredients.json";
 
 import type { BuilderSelections } from "./banh-mi-builder";
@@ -33,12 +33,11 @@ export function SignatureMenu({ onBuildBanhMi }: SignatureMenuProps) {
 
     const { builder } = selectedPreset;
     onBuildBanhMi?.({
-      0: builder.bread,
-      1: builder.size,
-      2: builder.protein,
-      3: builder.sauce,
-      4: builder.toppings,
-      5: builder.spiceLevel,
+      0: builder.size,
+      1: builder.protein,
+      2: builder.sauce,
+      3: builder.toppings,
+      4: builder.spiceLevel,
     });
     setSelectedItem(null);
     document.getElementById("builder")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -66,7 +65,13 @@ export function SignatureMenu({ onBuildBanhMi }: SignatureMenuProps) {
               key={item.name}
             >
               <div className={styles.imageWrap}>
-                <ImagePlaceholder className={styles.image} label={item.name} />
+                <Image
+                  alt={item.name}
+                  className={styles.menuImage}
+                  fill
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  src={item.image}
+                />
                 <span className={styles.number}>
                   {index + 1}
                 </span>
@@ -114,7 +119,15 @@ export function SignatureMenu({ onBuildBanhMi }: SignatureMenuProps) {
             <h3 className={styles.modalTitle} id="signature-ingredients-title">
               {selectedItem.name}
             </h3>
-            <ImagePlaceholder className={styles.modalImage} label={selectedItem.name} />
+            <div className={styles.modalImage}>
+              <Image
+                alt={selectedItem.name}
+                className={styles.menuImage}
+                fill
+                sizes="min(100vw, 430px)"
+                src={selectedItem.image}
+              />
+            </div>
             <div className={styles.ingredients}>
               {selectedIngredients.map((ingredient) => (
                 <span className={styles.ingredient} key={ingredient}>

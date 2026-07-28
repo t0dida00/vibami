@@ -17,8 +17,10 @@
   }
 }
 .card { display: flex; flex-direction: column; min-height: 410px; padding: 0.625rem; border: 1px solid rgba(#3a4b3d, 0.15); border-radius: t.$radius; background: t.$card; transition: 160ms ease; &:hover { box-shadow: 0 12px 24px rgba(t.$green, 0.08); transform: translateY(-0.25rem); } }
-.imageWrap { position: relative; }
-.image { aspect-ratio: 4 / 3; border-radius: t.$radius; }
+.grid:hover .card { opacity: 0.7; }
+.grid:hover .card:hover, .grid:hover .card:focus-within { opacity: 1; }
+.imageWrap { position: relative; overflow: hidden; aspect-ratio: 4 / 3; border-radius: t.$radius; background: #f4eedf; }
+.menuImage { object-fit: contain; }
 .number { position: absolute; top: 0.5rem; left: 0.5rem; display: grid; width: 1.75rem; height: 1.75rem; color: white; background: t.$green; border-radius: 50%; font-size: 0.75rem; font-weight: 900; place-items: center; }
 .content { display: flex; flex: 1; flex-direction: column; padding: 1rem 0.5rem 0.25rem; text-align: center; }
 .name { margin: 0; font-size: 1rem; font-weight: 900; line-height: 1.25; }
@@ -90,9 +92,12 @@
 }
 
 .modalImage {
+  position: relative;
+  overflow: hidden;
   aspect-ratio: 4 / 3;
   margin-block: 1rem;
   border-radius: t.$radius;
+  background: #f4eedf;
 }
 
 .ingredients {

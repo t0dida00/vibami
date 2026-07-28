@@ -20,10 +20,12 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   padding: 3rem 1.5rem;
+  text-align: center;
   @media (min-width: t.$sm) { padding-inline: 2.5rem; }
-  @media (min-width: t.$lg) { padding-block: 4rem; }
+  @media (min-width: t.$lg) { align-items: flex-start; padding-block: 4rem; text-align: left; }
   @media (min-width: t.$xl) { padding-left: 5rem; }
 }
 .title {
@@ -52,7 +54,7 @@
   line-height: 1.75;
   @media (min-width: t.$sm) { font-size: 1.125rem; }
 }
-.actions, .highlights { display: flex; flex-wrap: wrap; }
+.actions, .highlights { display: flex; flex-wrap: wrap; justify-content: center; @media (min-width: t.$lg) { justify-content: flex-start; } }
 .actions { margin-top: 1.5rem; gap: 0.75rem; }
 .button {
   border-radius: t.$radius !important;
@@ -66,10 +68,12 @@
 .highlightIcon { color: #599513; }
 .visual {
   position: relative;
+  display: none;
   min-height: 340px;
   padding: 1.25rem;
 
   @media (min-width: t.$lg) {
+    display: block;
     min-height: 100%;
     padding: 3rem 2.5rem 3rem 0;
   }
