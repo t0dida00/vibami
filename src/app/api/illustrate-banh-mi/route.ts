@@ -3,6 +3,7 @@ import path from "node:path";
 
 import { InferenceClient } from "@huggingface/inference";
 import type { InferenceProviderOrPolicy } from "@huggingface/inference";
+import { head, put } from "@vercel/blob";
 import { NextResponse } from "next/server";
 
 const DEFAULT_MODEL = "ideogram-ai/ideogram-4-fp8";
@@ -244,24 +245,57 @@ function getGalleryImage(body: IllustrationRequest | null) {
     .map(slugify)
     .join("-");
   const fileName = `${fileBase}.png`;
+  const blobPath = `${GALLERY_DIR}/${fileName}`;
   const publicPath = `/${GALLERY_DIR}/${fileName}`;
   const filePath = path.join(process.cwd(), "public", GALLERY_DIR, fileName);
 
-  return { filePath, publicPath };
+  return { blobPath, filePath, publicPath };
 }
 
-async function galleryImageExists(filePath: string) {
+function shouldUseVercelBlob() {
+  return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+}
+
+async function getCachedGalleryImage(galleryImage: ReturnType<typeof getGalleryImage>) {
+  if (!galleryImage) {
+    return null;
+  }
+
+  if (shouldUseVercelBlob()) {
+    try {
+      const blob = await head(galleryImage.blobPath);
+      return blob.url;
+    } catch {
+      return null;
+    }
+  }
+
   try {
-    await access(filePath);
-    return true;
+    await access(galleryImage.filePath);
+    return galleryImage.publicPath;
   } catch {
-    return false;
+    return null;
   }
 }
 
-async function saveGalleryImage(filePath: string, image: Blob) {
-  await mkdir(path.dirname(filePath), { recursive: true });
-  await writeFile(filePath, Buffer.from(await image.arrayBuffer()));
+async function saveGalleryImage(galleryImage: ReturnType<typeof getGalleryImage>, image: Blob) {
+  if (!galleryImage) {
+    return null;
+  }
+
+  if (shouldUseVercelBlob()) {
+    const blob = await put(galleryImage.blobPath, image, {
+      access: "public",
+      allowOverwrite: true,
+      contentType: image.type || "image/png",
+    });
+
+    return blob.url;
+  }
+
+  await mkdir(path.dirname(galleryImage.filePath), { recursive: true });
+  await writeFile(galleryImage.filePath, Buffer.from(await image.arrayBuffer()));
+  return galleryImage.publicPath;
 }
 
 async function blobToDataUrl(blob: Blob) {
@@ -273,9 +307,10 @@ export async function POST(request: Request) {
   try {
     const body = (await request.json().catch(() => null)) as IllustrationRequest | null;
     const galleryImage = getGalleryImage(body);
+    const cachedImageUrl = await getCachedGalleryImage(galleryImage);
 
-    if (galleryImage && await galleryImageExists(galleryImage.filePath)) {
-      return NextResponse.json({ cached: true, imageUrl: galleryImage.publicPath });
+    if (cachedImageUrl) {
+      return NextResponse.json({ cached: true, imageUrl: cachedImageUrl });
     }
 
     const prompt = buildIllustrationPrompt(body);
@@ -311,10 +346,14 @@ export async function POST(request: Request) {
       },
       { outputType: "blob" },
     );
-    const imageUrl = galleryImage?.publicPath || await blobToDataUrl(image);
+    let imageUrl = await blobToDataUrl(image);
 
     if (galleryImage) {
-      await saveGalleryImage(galleryImage.filePath, image);
+      try {
+        imageUrl = await saveGalleryImage(galleryImage, image) || imageUrl;
+      } catch (cacheError) {
+        console.error("Failed to save generated gallery image.", cacheError);
+      }
     }
 
     return NextResponse.json({ cached: false, imageUrl });
