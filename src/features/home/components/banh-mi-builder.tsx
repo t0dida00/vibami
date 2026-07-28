@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { CheckIcon } from "@phosphor-icons/react/dist/csr/Check";
 import { ArrowClockwiseIcon } from "@phosphor-icons/react/dist/csr/ArrowClockwise";
+import { CircleNotchIcon } from "@phosphor-icons/react/dist/csr/CircleNotch";
 import { ShoppingCartIcon } from "@phosphor-icons/react/dist/csr/ShoppingCart";
 
 import {
@@ -13,6 +14,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ImagePlaceholder } from "@/components/ui/image-placeholder";
+import {
+  builderOptionImageDetails,
+  builderOptionImages,
+  sampleOutputImage,
+} from "@/features/home/data/builder-option-images";
 import { builderSteps } from "@/features/home/data/menu";
 import { cn } from "@/lib/utils";
 
@@ -21,22 +27,6 @@ import { SectionHeading } from "./section-heading";
 
 const MULTI_SELECT_STEP_TITLE = "Choose toppings";
 const DEFAULT_OPEN_STEPS = builderSteps.map((_, index) => `step-${index}`);
-const optionImages: Record<string, string> = {
-  "Beef skewer": "/ingredients/ingredient-beef-skewer.svg",
-  Cilantro: "/ingredients/topping-cilantro.svg",
-  Cucumber: "/ingredients/topping-cucumber.svg",
-  "Fresh chili": "/ingredients/topping-fresh-chili.svg",
-  "Grilled chicken": "/ingredients/ingredient-grilled-chicken.svg",
-  "Grilled pork": "/ingredients/ingredient-grilled-pork.svg",
-  Meatball: "/ingredients/ingredient-meatball.svg",
-  Medium: "/ingredients/topping-fresh-chili.svg",
-  "Mixed grill": "/ingredients/ingredient-grilled-pork.svg",
-  "No spicy": "/ingredients/topping-fresh-chili.svg",
-  "Pickled carrot & daikon": "/ingredients/topping-pickled-carrot-daikon.svg",
-  "Spring onion": "/ingredients/topping-spring-onion.svg",
-  Mild: "/ingredients/topping-fresh-chili.svg",
-  "Extra spicy": "/ingredients/topping-fresh-chili.svg",
-};
 
 export type BuilderSelection = string | string[];
 export type BuilderSelections = Record<number, BuilderSelection>;
@@ -85,14 +75,24 @@ export function BanhMiBuilder({ presetSelections }: BanhMiBuilderProps) {
   const summary = selectedParts
     .join(" · ");
 
-  function buildIllustrationPrompt() {
-    return [
-      "Create an appetizing product illustration of a Vietnamese bánh mì sandwich.",
-      "Use a clean menu-style food photography composition on a light warm background.",
-      "Show the sandwich clearly with crisp bread and visible selected fillings.",
-      `Customer selections: ${summary}.`,
-      "No text, no logo, no hands, no packaging.",
-    ].join(" ");
+  function buildIllustrationPayload() {
+    const selectedOptions = builderSteps.flatMap((step, index) => {
+      const selection = selections[index];
+      const values = Array.isArray(selection) ? selection : selection ? [selection] : [];
+
+      return values.map((value) => ({
+        image: builderOptionImages[value],
+        prompt: builderOptionImageDetails[value]?.prompt,
+        step: step.title,
+        value,
+      }));
+    });
+
+    return {
+      sampleOutput: sampleOutputImage,
+      selections: selectedOptions,
+      summary,
+    };
   }
 
   async function illustrateBanhMi() {
@@ -105,11 +105,14 @@ export function BanhMiBuilder({ presetSelections }: BanhMiBuilderProps) {
 
     try {
       const response = await fetch("/api/illustrate-banh-mi", {
-        body: JSON.stringify({ prompt: buildIllustrationPrompt() }),
+        body: JSON.stringify(buildIllustrationPayload()),
         headers: { "Content-Type": "application/json" },
         method: "POST",
       });
-      const data = (await response.json()) as { imageUrl?: string; error?: string };
+      const responseText = await response.text();
+      const data = responseText
+        ? (JSON.parse(responseText) as { imageUrl?: string; error?: string })
+        : {};
 
       if (!response.ok || !data.imageUrl) {
         throw new Error(data.error || "Could not generate the illustration.");
@@ -156,7 +159,7 @@ export function BanhMiBuilder({ presetSelections }: BanhMiBuilderProps) {
                     <AccordionContent>
                       <div className={styles.options}>
                         {step.options.map((option) => {
-                          const optionImage = optionImages[option];
+                          const optionImage = builderOptionImages[option];
                           const isSelected = Array.isArray(selectedOption)
                             ? selectedOption.includes(option)
                             : selectedOption === option;
@@ -211,15 +214,21 @@ export function BanhMiBuilder({ presetSelections }: BanhMiBuilderProps) {
               ) : (
                 <ImagePlaceholder className={styles.summaryPlaceholder} label="Your custom bánh mì" />
               )}
-              <button
-                className={styles.illustrate}
-                disabled={!summary || isIllustrating}
-                onClick={illustrateBanhMi}
-                type="button"
-              >
-                <ArrowClockwiseIcon size={17} weight="bold" />
-                {isIllustrating ? "Illustrating..." : "Illustrate your bánh mì"}
-              </button>
+              {!generatedImage ? (
+                <button
+                  className={styles.illustrate}
+                  disabled={!summary || isIllustrating}
+                  onClick={illustrateBanhMi}
+                  type="button"
+                >
+                  {isIllustrating ? (
+                    <CircleNotchIcon className={styles.loadingIcon} size={17} weight="bold" />
+                  ) : (
+                    <ArrowClockwiseIcon size={17} weight="bold" />
+                  )}
+                  {isIllustrating ? "Illustrating..." : "Illustrate your bánh mì"}
+                </button>
+              ) : null}
             </div>
             {illustrationError ? <p className={styles.illustrationError}>{illustrationError}</p> : null}
             <p className={styles.summaryDescription}>
