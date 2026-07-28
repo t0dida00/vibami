@@ -1,11 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRightIcon } from "@phosphor-icons/react/dist/ssr/ArrowRight";
 import { BreadIcon } from "@phosphor-icons/react/dist/ssr/Bread";
 import { LeafIcon } from "@phosphor-icons/react/dist/ssr/Leaf";
 import { PepperIcon } from "@phosphor-icons/react/dist/ssr/Pepper";
 
 import { buttonVariants } from "@/components/ui/button";
-import { ImagePlaceholder } from "@/components/ui/image-placeholder";
 
 import styles from "./hero-section.module.scss";
 
@@ -60,15 +60,22 @@ export function HeroSection() {
           </div>
         </div>
         <div className={styles.visual}>
-          <ImagePlaceholder
-            className={styles.placeholder}
-            label="Hero bánh mì photography"
-          />
-          <div className={styles.stamp}>
+          {/* <div className={styles.placeholder}>
+            
+          </div> */}
+          <Image
+              alt="Fresh bánh mì with Vietnamese ingredients"
+              className={styles.photo}
+              fill
+              priority
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              src="/images/hero-photography.svg"
+            />
+          {/* <div className={styles.stamp}>
             Made with love
             <br />
             from Vietnam
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

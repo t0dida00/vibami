@@ -66,7 +66,7 @@
 .highlightIcon { color: #599513; }
 .visual {
   position: relative;
-  min-height: 300px;
+  min-height: 340px;
   padding: 1.25rem;
 
   @media (min-width: t.$lg) {
@@ -75,11 +75,20 @@
   }
 }
 .placeholder {
-  height: 100%;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  height: auto;
   min-height: 270px;
   border: 1px solid rgba(t.$green, 0.12);
   border-radius: t.$radius;
   box-shadow: 0 18px 40px rgba(#332816, 0.12);
+}
+
+.photo {
+  object-fit: contain;
+  object-position: center;
+  transform: scale(1.5);
 }
 .stamp {
   position: absolute;

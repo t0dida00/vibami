@@ -17,11 +17,33 @@ import { cn } from "@/lib/utils";
 import styles from "./banh-mi-builder.module.scss";
 import { SectionHeading } from "./section-heading";
 
-export function BanhMiBuilder() {
-  const [activeStep, setActiveStep] = useState("step-0");
-  const [selections, setSelections] = useState<Record<number, string>>({});
+const MULTI_SELECT_STEP_TITLE = "Choose toppings";
 
-  function selectOption(stepIndex: number, option: string) {
+export type BuilderSelection = string | string[];
+export type BuilderSelections = Record<number, BuilderSelection>;
+
+type BanhMiBuilderProps = {
+  presetSelections?: BuilderSelections | null;
+};
+
+export function BanhMiBuilder({ presetSelections }: BanhMiBuilderProps) {
+  const [activeStep, setActiveStep] = useState("step-0");
+  const [selections, setSelections] = useState<BuilderSelections>(() => presetSelections ?? {});
+
+  function selectOption(stepIndex: number, option: string, allowMultiple: boolean) {
+    if (allowMultiple) {
+      setSelections((current) => {
+        const currentOptions = current[stepIndex];
+        const selectedOptions = Array.isArray(currentOptions) ? currentOptions : [];
+        const nextOptions = selectedOptions.includes(option)
+          ? selectedOptions.filter((selectedOption) => selectedOption !== option)
+          : [...selectedOptions, option];
+
+        return { ...current, [stepIndex]: nextOptions };
+      });
+      return;
+    }
+
     setSelections((current) => ({ ...current, [stepIndex]: option }));
 
     const nextStep = stepIndex + 1;
@@ -30,8 +52,16 @@ export function BanhMiBuilder() {
     }
   }
 
+  function clearSelections() {
+    setSelections({});
+    setActiveStep("step-0");
+  }
+
   const summary = builderSteps
-    .map((_, index) => selections[index])
+    .map((_, index) => {
+      const selection = selections[index];
+      return Array.isArray(selection) ? selection.join(", ") : selection;
+    })
     .filter(Boolean)
     .join(" · ");
 
@@ -47,7 +77,11 @@ export function BanhMiBuilder() {
             value={activeStep}
           >
             {builderSteps.map((step, stepIndex) => {
+              const allowMultiple = step.title === MULTI_SELECT_STEP_TITLE;
               const selectedOption = selections[stepIndex];
+              const stepSelection = Array.isArray(selectedOption)
+                ? selectedOption.join(", ")
+                : selectedOption;
 
               return (
                 <AccordionItem key={step.title} value={`step-${stepIndex}`}>
@@ -56,20 +90,23 @@ export function BanhMiBuilder() {
                       <span className={styles.stepNumber}>{stepIndex + 1}</span>
                       <span className={styles.stepTitle}>{step.title}</span>
                     </span>
-                    {selectedOption ? (
-                      <span className={styles.stepSelection}>{selectedOption}</span>
+                    {stepSelection ? (
+                      <span className={styles.stepSelection}>{stepSelection}</span>
                     ) : null}
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className={styles.options}>
                       {step.options.map((option) => {
-                        const isSelected = selectedOption === option;
+                        const isSelected = Array.isArray(selectedOption)
+                          ? selectedOption.includes(option)
+                          : selectedOption === option;
 
                         return (
                           <button
+                            aria-pressed={isSelected}
                             className={cn(styles.option, isSelected && styles.selected)}
                             key={option}
-                            onClick={() => selectOption(stepIndex, option)}
+                            onClick={() => selectOption(stepIndex, option, allowMultiple)}
                             type="button"
                           >
                             <span className={styles.optionImage}>IMG</span>
@@ -96,6 +133,9 @@ export function BanhMiBuilder() {
             <button className={styles.add} type="button">
               <ShoppingCartIcon size={17} weight="bold" />
               Add to cart
+            </button>
+            <button className={styles.clear} onClick={clearSelections} type="button">
+              Clear
             </button>
           </aside>
         </div>

@@ -1,0 +1,122 @@
+{
+  "Grilled Pork Bánh Mì": {
+    "builder": {
+      "bread": "Vietnamese baguette",
+      "size": "19 cm",
+      "protein": "Grilled pork",
+      "sauce": "House grilled sauce",
+      "toppings": ["Pickled carrot & daikon", "Cucumber", "Cilantro", "Spring onion", "Fresh chili"],
+      "spiceLevel": "Mild"
+    },
+    "ingredients": [
+      "Vietnamese baguette",
+      "Grilled pork",
+      "Pickled carrot & daikon",
+      "Cucumber",
+      "Cilantro",
+      "Spring onion",
+      "House grilled sauce",
+      "Fresh chili"
+    ]
+  },
+  "Grilled Chicken Bánh Mì": {
+    "builder": {
+      "bread": "Vietnamese baguette",
+      "size": "19 cm",
+      "protein": "Grilled chicken",
+      "sauce": "House grilled sauce",
+      "toppings": ["Pickled carrot & daikon", "Cucumber", "Cilantro", "Spring onion", "Fresh chili"],
+      "spiceLevel": "Mild"
+    },
+    "ingredients": [
+      "Vietnamese baguette",
+      "Lemongrass chicken",
+      "Pickled carrot & daikon",
+      "Cucumber",
+      "Cilantro",
+      "Spring onion",
+      "House grilled sauce",
+      "Fresh chili"
+    ]
+  },
+  "Beef Skewer Bánh Mì": {
+    "builder": {
+      "bread": "Vietnamese baguette",
+      "size": "19 cm",
+      "protein": "Beef skewer",
+      "sauce": "Chili sauce",
+      "toppings": ["Pickled carrot & daikon", "Cucumber", "Cilantro", "Spring onion", "Fresh chili"],
+      "spiceLevel": "Medium"
+    },
+    "ingredients": [
+      "Vietnamese baguette",
+      "Beef skewer",
+      "Pickled carrot & daikon",
+      "Cucumber",
+      "Cilantro",
+      "Spring onion",
+      "Chili sauce",
+      "House grilled sauce"
+    ]
+  },
+  "Meatball Bánh Mì": {
+    "builder": {
+      "bread": "Vietnamese baguette",
+      "size": "19 cm",
+      "protein": "Meatball",
+      "sauce": "Vietnamese fish sauce",
+      "toppings": ["Pickled carrot & daikon", "Cucumber", "Cilantro", "Spring onion", "Fresh chili"],
+      "spiceLevel": "Mild"
+    },
+    "ingredients": [
+      "Vietnamese baguette",
+      "Pork meatballs",
+      "Tomato sauce",
+      "Pickled carrot & daikon",
+      "Cucumber",
+      "Cilantro",
+      "Spring onion",
+      "Fresh chili"
+    ]
+  },
+  "Egg Mayo Bánh Mì": {
+    "builder": {
+      "bread": "Vietnamese baguette",
+      "size": "19 cm",
+      "protein": "Egg mayo",
+      "sauce": "Egg mayo",
+      "toppings": ["Pickled carrot & daikon", "Cucumber", "Cilantro", "Spring onion"],
+      "spiceLevel": "No spicy"
+    },
+    "ingredients": [
+      "Vietnamese baguette",
+      "Egg mayo",
+      "Pickled carrot & daikon",
+      "Cucumber",
+      "Cilantro",
+      "Spring onion",
+      "House sauce",
+      "Fresh chili"
+    ]
+  },
+  "Mixed Grill Bánh Mì": {
+    "builder": {
+      "bread": "Vietnamese baguette",
+      "size": "29 cm",
+      "protein": "Grilled pork",
+      "sauce": "House grilled sauce",
+      "toppings": ["Pickled carrot & daikon", "Cucumber", "Cilantro", "Spring onion", "Fresh chili"],
+      "spiceLevel": "Medium"
+    },
+    "ingredients": [
+      "Vietnamese baguette",
+      "Grilled pork",
+      "Beef skewer",
+      "Pickled carrot & daikon",
+      "Cucumber",
+      "Cilantro",
+      "Spring onion",
+      "Signature sauce"
+    ]
+  }
+}

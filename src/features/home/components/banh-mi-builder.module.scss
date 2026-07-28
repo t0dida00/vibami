@@ -15,7 +15,7 @@
   gap: 1rem;
 
   @media (min-width: t.$lg) {
-    grid-template-columns: minmax(0, 1fr) 360px;
+    grid-template-columns: minmax(0, 1fr) 40%;
     align-items: stretch;
   }
 }
@@ -26,6 +26,7 @@
   border: 1px solid rgba(t.$green, 0.15);
   border-radius: t.$radius;
   background: #fffdf8;
+  height: fit-content;
 }
 
 .stepTrigger {
@@ -148,6 +149,7 @@
   border-radius: t.$radius;
   background: #fffdf8;
   text-align: center;
+  height: fit-content;
 }
 
 .summaryTitle {
@@ -198,5 +200,25 @@
 
   &:hover {
     background: t.$green-dark;
+  }
+}
+
+.clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.625rem;
+  padding: 0.75rem 1rem;
+  color: t.$green;
+  border: 1px solid rgba(t.$green, 0.28);
+  border-radius: t.$radius;
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &:hover {
+    background: #eff5eb;
   }
 }
