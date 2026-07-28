@@ -22,9 +22,8 @@ export const builderSteps = [
 ] as const;
 
 export const comboItems = [
-  { name: "Vietnamese Iced Coffee", price: "€2.50" },
-  { name: "Soft Drink", price: "€2.00" },
-  { name: "Spring Rolls", price: "€2.50" },
-  { name: "Fruit Cup", price: "€2.50" },
-  { name: "Crispy Chips", price: "€1.50" },
+  { image: "/images/menu-vietnamese-iced-coffee.svg", name: "Vietnamese Iced Coffee", price: "€2.50" },
+  { image: "/images/menu-soft-drinks.svg", name: "Soft Drink", price: "€2.00" },
+  { image: "/images/menu-fruit-cup.svg", name: "Fruit Cup", price: "€2.50" },
+  { image: "/images/menu-crispy-chips.svg", name: "Crispy Chips", price: "€1.50" },
 ] as const;

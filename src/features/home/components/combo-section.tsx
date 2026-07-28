@@ -1,7 +1,7 @@
+import Image from "next/image";
 import { PlusIcon } from "@phosphor-icons/react/dist/ssr/Plus";
 import { ShoppingCartIcon } from "@phosphor-icons/react/dist/ssr/ShoppingCart";
 
-import { ImagePlaceholder } from "@/components/ui/image-placeholder";
 import { comboItems } from "@/features/home/data/menu";
 
 import { SectionHeading } from "./section-heading";
@@ -15,7 +15,15 @@ export function ComboSection() {
         <div className={styles.grid}>
           {comboItems.map((item) => (
             <article className={styles.item} key={item.name}>
-              <ImagePlaceholder className={styles.image} label={item.name} />
+              <div className={styles.image}>
+                <Image
+                  alt={item.name}
+                  className={styles.artwork}
+                  fill
+                  sizes="80px"
+                  src={item.image}
+                />
+              </div>
               <div>
                 <h3 className={styles.name}>{item.name}</h3>
                 <p className={styles.price}>{item.price}</p>
@@ -25,17 +33,17 @@ export function ComboSection() {
               </button>
             </article>
           ))}
-          <article className={styles.deal}>
+          <button aria-label="Add drink and side combo to cart" className={styles.deal} type="button">
             <div className={styles.dealParts}>
               <span>Drink</span>
               <PlusIcon size={15} weight="bold" />
               <span>Side</span>
             </div>
             <p className={styles.dealLabel}>Add combo to cart</p>
-            <button className={styles.dealPrice} type="button">
+            <span className={styles.dealPrice}>
               <ShoppingCartIcon size={19} weight="bold" /> €3.50
-            </button>
-          </article>
+            </span>
+          </button>
         </div>
       </div>
     </section>

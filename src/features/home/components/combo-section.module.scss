@@ -3,13 +3,14 @@
 
 .section { @include m.section-padding; background: #fffdf8; }
 .inner { @include m.container; }
-.grid { display: grid; gap: 1rem; @media (min-width: t.$md) { grid-template-columns: repeat(2, minmax(0, 1fr)); } @media (min-width: t.$xl) { grid-template-columns: repeat(5, minmax(0, 1fr)) 1.25fr; } }
+.grid { display: grid; gap: 1rem; @media (min-width: t.$md) { grid-template-columns: repeat(2, minmax(0, 1fr)); } @media (min-width: t.$xl) { grid-template-columns: repeat(4, minmax(0, 1fr)) 1.25fr; } }
 .item { position: relative; display: flex; align-items: center; min-height: 9rem; padding: 0.75rem; gap: 0.75rem; border: 1px solid rgba(t.$green, 0.15); border-radius: t.$radius; background: t.$card; }
-.image { flex-shrink: 0; width: 5rem; height: 6rem; border-radius: t.$radius; }
+.image { position: relative; flex-shrink: 0; overflow: hidden; width: 5rem; height: 6rem; border-radius: t.$radius; }
+.artwork { object-fit: contain; padding: 0.35rem; transform: scale(1.5); }
 .name { margin: 0; font-size: 0.75rem; font-weight: 700; line-height: 1rem; }
 .price { margin: 0.5rem 0 0; color: t.$green; font-size: 0.875rem; font-weight: 900; }
 .plus { position: absolute; top: 0%; right: -0.5rem; display: grid; width: 1.75rem; height: 1.75rem; padding: 0; color: white; border: 0; border-radius: 50%; background: t.$green; box-shadow: 0 2px 5px rgba(black, 0.15); place-items: center; transform: translateY(-50%); cursor: pointer; }
-.deal { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 9rem; padding: 1rem; color: t.$green; border: 1px solid rgba(t.$green, 0.35); border-radius: t.$radius; background: #f4f4e8; text-align: center; }
+.deal { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 9rem; padding: 1rem; color: t.$green; border: 1px solid rgba(t.$green, 0.35); border-radius: t.$radius; background: #f4f4e8; text-align: center; cursor: pointer; transition: 160ms ease; &:hover, &:focus-visible { background: #eff5eb; box-shadow: 0 10px 22px rgba(t.$green, 0.1); transform: translateY(-0.125rem); } }
 .dealParts { display: flex; align-items: center; gap: 0.5rem; font-weight: 900; }
 .dealLabel { margin: 0.75rem 0 0; font-size: 0.75rem; font-weight: 900; letter-spacing: 0.025em; text-transform: uppercase; }
-.dealPrice { display: inline-flex; align-items: center; margin-top: 0.5rem; padding: 0; gap: 0.5rem; color: t.$green; border: 0; background: transparent; font-size: 1.25rem; font-weight: 900; cursor: pointer; }
+.dealPrice { display: inline-flex; align-items: center; margin-top: 0.5rem; padding: 0; gap: 0.5rem; color: t.$green; border: 0; background: transparent; font-size: 1.25rem; font-weight: 900; }
