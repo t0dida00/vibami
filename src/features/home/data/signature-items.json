@@ -3,13 +3,19 @@
     "name": "Grilled Pork Bánh Mì",
     "description": "Marinated grilled pork with pickled veggies, cucumber & herbs.",
     "price": "€6.50",
-    "image": "/images/grilled-pork-banh-mi.svg"
+    "image": "/images/grilled-pork-banh-mi2.svg"
   },
   {
     "name": "Grilled Chicken Bánh Mì",
     "description": "Lemongrass chicken with fresh veggies & house sauce.",
     "price": "€6.50",
     "image": "/images/grilled-chicken-banh-mi.svg"
+  },
+  {
+    "name": "Crispy Pork Bánh Mì",
+    "description": "Crunchy pork belly with pickled veggies, cucumber & chili sauce.",
+    "price": "€6.90",
+    "image": "/images/grilled-pork-banh-mi.svg"
   },
   {
     "name": "Beef Skewer Bánh Mì",

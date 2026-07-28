@@ -39,6 +39,26 @@
       "Fresh chili"
     ]
   },
+  "Crispy Pork Bánh Mì": {
+    "builder": {
+      "bread": "Vietnamese baguette",
+      "size": "19 cm",
+      "protein": "Crispy pork",
+      "sauce": "Chili sauce",
+      "toppings": ["Pickled carrot & daikon", "Cucumber", "Cilantro", "Spring onion", "Fresh chili"],
+      "spiceLevel": "Medium"
+    },
+    "ingredients": [
+      "Vietnamese baguette",
+      "Crispy pork belly",
+      "Pickled carrot & daikon",
+      "Cucumber",
+      "Cilantro",
+      "Spring onion",
+      "Chili sauce",
+      "Fresh chili"
+    ]
+  },
   "Beef Skewer Bánh Mì": {
     "builder": {
       "bread": "Vietnamese baguette",

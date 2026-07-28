@@ -5,7 +5,7 @@ export const builderSteps = [
   },
   {
     title: "Choose protein",
-    options: ["Grilled pork", "Grilled chicken", "Beef skewer", "Meatball", "Egg mayo", "Mixed grill"],
+    options: ["Grilled pork", "Grilled chicken", "Crispy pork", "Beef skewer", "Meatball", "Egg mayo", "Mixed grill"],
   },
   {
     title: "Choose sauce",

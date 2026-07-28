@@ -28,6 +28,10 @@ export const builderOptionImageDetails: Record<string, BuilderOptionImage> = {
     image: "/ingredients/ingredient-grilled-pork.svg",
     prompt: "marinated grilled pork slices, warm golden-brown color, caramelized edges",
   },
+  "Crispy pork": {
+    image: "/ingredients/ingredient-crispy-pork.svg",
+    prompt: "crispy roasted pork belly slices, crunchy golden crackling skin, juicy layered pork",
+  },
   Meatball: {
     image: "/ingredients/ingredient-meatball.svg",
     prompt: "round pork meatballs coated in red tomato sauce",
