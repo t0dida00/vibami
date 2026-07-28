@@ -20,6 +20,12 @@
   }
 }
 
+.builderColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
 .steps {
   overflow: hidden;
   align-self: stretch;
@@ -108,7 +114,9 @@
 }
 
 .optionImage {
+  position: relative;
   display: grid;
+  overflow: hidden;
   flex-shrink: 0;
   width: 2rem;
   height: 2rem;
@@ -117,6 +125,10 @@
   border-radius: t.$radius;
   font-size: 0.5625rem;
   place-items: center;
+}
+
+.optionArtwork {
+  object-fit: contain;
 }
 
 .optionLabel {
@@ -162,9 +174,20 @@
 }
 
 .summaryImage {
+  position: relative;
+  overflow: hidden;
   aspect-ratio: 4 / 3;
   margin-block: 1rem;
   border-radius: t.$radius;
+}
+
+.summaryPlaceholder {
+  width: 100%;
+  height: 100%;
+}
+
+.generatedImage {
+  object-fit: cover;
 }
 
 .summaryDescription {
@@ -201,6 +224,45 @@
   &:hover {
     background: t.$green-dark;
   }
+}
+
+.illustrate {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: min(86%, 18rem);
+  padding: 0.8rem 1rem;
+  gap: 0.5rem;
+  color: #17341f;
+  border: 0;
+  border-radius: t.$radius;
+  background: t.$yellow;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background: #e8aa08;
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+.illustrationError {
+  margin: -0.25rem 0 0;
+  color: #9b3124;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.35;
 }
 
 .clear {
